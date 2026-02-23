@@ -30,6 +30,9 @@
 #include <algorithm>
 #include <ctime>
 #include <cmath>
+#include <functional>
+#include <chrono>
+#include <iomanip>
 
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
@@ -2157,8 +2160,9 @@ private:
         {
             actionTimer = new ActionTimer(duration, [this, action]() -> void {
                 action();
-                delete actionTimer;
+                ActionTimer* timerToDelete = actionTimer;
                 actionTimer = nullptr;
+                delete timerToDelete;
             });
         }
     }
